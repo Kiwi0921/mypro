@@ -1,0 +1,29 @@
+{include file="../application/admin/view/common/header_title.html" /}
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    {include file="../application/admin/view/common/header.html" /}
+    {include file="../application/admin/view/common/sidebar.html" /}
+
+    <!-- Content Wrapper. Contains page content -->
+<frameset cols="50%,55%">
+    <frame src="http://baidu.com" name="rightFrame" id="rightFrame" title="rightFrame" />
+    <frame src="http://jd.com" />
+</frameset>
+    
+<frameset cols="300,*" frameborder="no" border="0" framespacing="0" id="contentFrame"  name="contentFrame">
+    <frame src="http://baidu.com" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame" title="leftFrame" />
+    <frame src="http://jd.com" name="rightFrame" id="rightFrame" title="rightFrame" />
+</frameset>
+    
+    <!-- /.content-wrapper -->
+
+    {include file="../application/admin/view/common/footer.html" /}
+    {include file="../application/admin/view/common/setting.html" /}
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+{include file="../application/admin/view/common/footer_js.html" /}
