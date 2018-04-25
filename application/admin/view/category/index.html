@@ -1,0 +1,37 @@
+{include file="../application/admin/view/common/header.html" /}
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    {include file="../application/admin/view/common/header_main.html" /}
+    {include file="../application/admin/view/common/sidebar.html" /}
+
+    <!-- Content Wrapper. Contains page content -->
+    {include file="../application/admin/view/category/index_cont.html" /}
+
+    <!-- /.content-wrapper -->
+
+    {include file="../application/admin/view/common/footer_main.html" /}
+    {include file="../application/admin/view/common/setting.html" /}
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+{include file="../application/admin/view/common/footer.html" /}
+
+<!-- page script -->
+<script>
+    $(function () {
+       // $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging': true,
+            // scrollY: 200,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': false,
+            'info': true,
+            'autoWidth': true
+        })
+    })
+</script>
