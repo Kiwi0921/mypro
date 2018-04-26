@@ -4,13 +4,16 @@ namespace app\admin\controller;
 
 use think\Controller;
 use app\common\model\Category as CategoryModel;
+use app\common\model\Article as ArticleModel;
 
-class Category extends Controller {
+class Article extends Controller {
 
     private $_categoryModel;
+    private $_articleModel;
 
     protected function initialize() {
         $this->_categoryModel = new CategoryModel;
+        $this->_articleModel = new ArticleModel;
     }
 
     public function index() {
@@ -23,7 +26,7 @@ class Category extends Controller {
             //$map['title'] = ['like', ''.$params['title'].''];
         }
 
-        $data = $this->_categoryModel
+        $data = $this->_articleModel
                 ->where($map)
                 ->order('id', 'desc')
                 ->select();
@@ -34,18 +37,22 @@ class Category extends Controller {
     }
 
     public function add() {
+        $category = $this->_getCategory();
+        $this->assign('category', $category);
         return view();
     }
 
     public function save() {
-        $title = $this->request->param('title', '');
-        $slug = $this->request->param('slug', '');
- 
-        $result = $this->_categoryModel->save([
+        $title = $this->request->param('title', '', 'trim');
+        $content = $this->request->param('content', '');
+        $category_id = $this->request->param('category_id', 0, 'intval');
+        $result = $this->_articleModel->save([
             'title' => $title,
-            'slug' => $slug,
+            'content' => $content,
+            'category_id' => $category_id,
             'addtime' => time()
         ]);
+        
         if ($result) {
             $data = ['status' => 1, 'message' => '操作成功'];
         } else {
@@ -61,11 +68,7 @@ class Category extends Controller {
     }
 
     public function update($id) {
-        $title = $this->request->param('title', '');
-        $slug = $this->request->param('slug', '');
-
-        $result = $this->_categoryModel->where('id', $id)->update(['title' => $title, 'slug' => $slug ]);
-
+     
         if ($result) {
             $data = ['status' => 1, 'message' => '操作成功'];
         } else {
@@ -82,5 +85,10 @@ class Category extends Controller {
             $data = ['status' => 0, 'message' => '操作失败'];
         }
         return json($data);
+    }
+    
+    private function _getCategory(){
+        $data = $this->_categoryModel->field('id,title,slug')->where('status=1')->select();
+        return $data;
     }
 }

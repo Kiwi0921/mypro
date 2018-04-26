@@ -38,7 +38,7 @@
                                 <div class="form-group "> <!--has-error -->
                                     <label for="inputTitle" class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="">
+                                        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="" value="{:isset($info['title'])?$info['title']:''}">
                                         <!--<span class="help-block">Help block with error</span>-->
                                     </div>
                                     <!--<span class="col-sm-4 help-block"><i class="fa fa-times-circle-o"></i> 你的输入有错误啊!</span>-->
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="inputSlug" class="col-sm-2 control-label">别名</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="slug" class="form-control" id="inputSlug" placeholder="">
+                                        <input type="text" name="slug" class="form-control" id="inputSlug" placeholder="" value="{:isset($info['slug'])?$info['slug']:''}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -62,7 +62,10 @@
                             <!-- /.box-body -->
                             <div class="box-footer">
                                 <div class=" col-sm-offset-2">
-                                    <button type="button" class="btn btn-info" onclick="doSubmit();">确 定</button>
+                                    <?php if(isset($info['id'])){ ?>
+                                    <input type='hidden' name='id' value='{$info.id}' />
+                                    <?php } ?>
+                                    <button type="button" class="btn btn-info" onclick="doSubmit({:isset($info['id'])?$info['id']:0});">确 定</button>
                                     <button type="button" class="btn btn-default">取 消</button>
                                 </div>
                             </div>
@@ -87,9 +90,13 @@
 <!-- ./wrapper -->
 {include file="../application/admin/view/common/footer.html" /}
 <script>
-    function doSubmit(){
+    function doSubmit(id){
         var url = '', _data = $('#J_form').serialize();
-        url = '/admin/category/save/';
+        if(id){
+            url = '/admin/category/update/';
+        }else{
+            url = '/admin/category/save/';
+        }
         $.ajax({
             type: 'post',
             url: url,
@@ -98,7 +105,7 @@
             success: function (D) {
                 layer.msg(D.message);
                 if (D.status == 1) {
-                    //window.location.href = "/recall/index";
+                    window.location.href = "{:url('admin/category/index')}";
                 } else {
                    // alert(D.msg)
                 }
