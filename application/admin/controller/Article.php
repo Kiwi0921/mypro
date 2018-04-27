@@ -62,19 +62,36 @@ class Article extends Controller {
     }
 
     public function read($id) {
-        $info = $this->_categoryModel->find($id);
+        $info = $this->_articleModel->find($id);
+        
+        $category = $this->_getCategory();
+        $this->assign('category', $category);
         $this->assign('info', $info);
         return view('add');
     }
 
     public function update($id) {
      
+        $title = $this->request->param('title', '', 'trim');
+        $content = $this->request->param('content', '');
+        $category_id = $this->request->param('category_id', 0, 'intval');
+        $result = $this->_articleModel
+                ->where('id='.$id)
+                ->update([
+                    'title' => $title,
+                    'content' => $content,
+                    'category_id' => $category_id,
+                    'updatetime' => time()
+                ]);
+        
         if ($result) {
             $data = ['status' => 1, 'message' => '操作成功'];
         } else {
             $data = ['status' => 0, 'message' => '操作失败'];
         }
         return json($data);
+        
+
     }
 
     public function delete($id) {

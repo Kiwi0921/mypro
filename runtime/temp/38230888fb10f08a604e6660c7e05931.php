@@ -1,4 +1,4 @@
-<?php /*a:7:{s:51:"D:\www\tp5\application\admin\view\category\add.html";i:1524645105;s:44:"../application/admin/view/common/header.html";i:1524647023;s:49:"../application/admin/view/common/header_main.html";i:1524628564;s:45:"../application/admin/view/common/sidebar.html";i:1523613149;s:49:"../application/admin/view/common/footer_main.html";i:1523608796;s:45:"../application/admin/view/common/setting.html";i:1523607941;s:44:"../application/admin/view/common/footer.html";i:1524639491;}*/ ?>
+<?php /*a:7:{s:51:"D:\www\tp5\application\admin\view\category\add.html";i:1524750873;s:44:"../application/admin/view/common/header.html";i:1524750873;s:49:"../application/admin/view/common/header_main.html";i:1524651407;s:45:"../application/admin/view/common/sidebar.html";i:1523613149;s:49:"../application/admin/view/common/footer_main.html";i:1524651407;s:45:"../application/admin/view/common/setting.html";i:1523607941;s:44:"../application/admin/view/common/footer.html";i:1524750873;}*/ ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,6 +20,9 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="/static/admin/dist/css/skins/_all-skins.min.css">
+        
+          <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="/static/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -294,7 +297,7 @@
                                 <div class="form-group "> <!--has-error -->
                                     <label for="inputTitle" class="col-sm-2 control-label">标题</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="">
+                                        <input type="text" name="title" class="form-control" id="inputTitle" placeholder="" value="<?php echo isset($info['title'])?$info['title']:''; ?>">
                                         <!--<span class="help-block">Help block with error</span>-->
                                     </div>
                                     <!--<span class="col-sm-4 help-block"><i class="fa fa-times-circle-o"></i> 你的输入有错误啊!</span>-->
@@ -302,7 +305,7 @@
                                 <div class="form-group">
                                     <label for="inputSlug" class="col-sm-2 control-label">别名</label>
                                     <div class="col-sm-4">
-                                        <input type="text" name="slug" class="form-control" id="inputSlug" placeholder="">
+                                        <input type="text" name="slug" class="form-control" id="inputSlug" placeholder="" value="<?php echo isset($info['slug'])?$info['slug']:''; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -318,7 +321,10 @@
                             <!-- /.box-body -->
                             <div class="box-footer">
                                 <div class=" col-sm-offset-2">
-                                    <button type="button" class="btn btn-info" onclick="doSubmit();">确 定</button>
+                                    <?php if(isset($info['id'])){ ?>
+                                    <input type='hidden' name='id' value='<?php echo htmlentities($info['id']); ?>' />
+                                    <?php } ?>
+                                    <button type="button" class="btn btn-info" onclick="doSubmit(<?php echo isset($info['id'])?$info['id']:0; ?>);">确 定</button>
                                     <button type="button" class="btn btn-default">取 消</button>
                                 </div>
                             </div>
@@ -558,13 +564,16 @@
         <script>
             //kiwi common
         </script>
-    </body>
-</html>
+
 
 <script>
-    function doSubmit(){
+    function doSubmit(id){
         var url = '', _data = $('#J_form').serialize();
-        url = '/admin/category/save/';
+        if(id){
+            url = '/admin/category/update/';
+        }else{
+            url = '/admin/category/save/';
+        }
         $.ajax({
             type: 'post',
             url: url,
@@ -573,7 +582,7 @@
             success: function (D) {
                 layer.msg(D.message);
                 if (D.status == 1) {
-                    //window.location.href = "/recall/index";
+                    window.location.href = "<?php echo url('admin/category/index'); ?>";
                 } else {
                    // alert(D.msg)
                 }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>kiwi site</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/idx/css/common.css">
+    </head>
+    <body>
+        <section class="Layout__Sidebar">
+            <img class="Logo" src="http://pearsearch.org/images/logo.svg" alt="Pearsearch logo"/>
+            <nav class="Navigation Navigation--Main">
+                <li><a href="/">Home</a></li>
+                {volist name="category" id="vo"}
+                <li><a href="{:url('index/index/category','id='.$vo['id'])}">{$vo.title}</a></li>
+                {/volist}
+                <!--<li class="Navigation--Selected"><a href="posts.html">Writing</a></li>-->
+            </nav>
+            <hr class="Navigation__Splitter"/>
+            <nav class="Navigation Navigation--Secondry">
+                <li><a href="https://github.com/PeARSearch/PeARS-orchard">Install from Github</a></li>
+                <li><a href="https://github.com/PeARSearch/PeARS-orchard">我要留言</a></li>
+            </nav>
+          
+        </section>
+        <section class="Layout__Content">
+            <h1 class="PageTitle">Posts</h1>
+            <section>
+                <ol class="Writing">
+                    {volist name="article" id="vo"}
+                    <li class="Article">
+                        <a href="{:url('index/index/article','id='.$vo['id'])}">
+                            <h3 class="Article__Title">{$vo.title}</h3>
+                        </a>
+                        <p class="Article__Author">
+                            by Kiwi
+                            <span class="Article__Date">on 11 Feb 2018</span>
+                        </p>
+                        <div class="Article__ShortDescription">
+                            {$vo.content|strip_tags|mb_substr=###,0,150}
+                            
+                        </div>
+                    </li>
+                    {/volist}
+                   
+                </ol>
+            </section>
+
+            <ul class="Splitter">
+                <li class="Splitter__Square Splitter__Square--small"></li>
+                <li class="Splitter__Square Splitter__Square--big"></li>
+                <li class="Splitter__Square Splitter__Square--small"></li>
+            </ul>
+
+            <section>
+                <h2>Ready to start contributing to PeARS?</h2>
+                <p>That's great! We are very active on IRC and our discourse discussion platform. Check out our <a href="contribute.html">contributors' page</a>, and drop us a post, or say 'Hi' to us over IRC!</p>
+                <ul class="Footer__Links">
+                    <li>
+                        <a href="http://webchat.freenode.net/" target="_blank">
+                            <h3>IRC: #pears on Freenode</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://lists.pearsearch.org/" target="_blank">
+                            <h3>PeARS Discourse Discussion</h3>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+        <script type="text/javascript" src="scripts/contribute.js"></script>
+    
+    </body>
+</html>
+

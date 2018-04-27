@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>kiwi site</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/idx/css/common.css">
+
+
+        <script type="text/javascript" src="/static/code/scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+        <script type="text/javascript" src="/static/code/scripts/shCore.js"></script>
+        <script type="text/javascript" src="/static/code/scripts/shBrushJScript.js"></script>
+        <link type="text/css" rel="stylesheet" href="/static/code/styles/shCore.css"/>
+        <!--<link type="text/css" rel="Stylesheet" href="/static/code/styles/shThemeDefault.css" />-->
+        <!--<link type="text/css" rel="Stylesheet" href="/static/code/styles/shThemeRDark.css" />-->
+        <link type="text/css" rel="Stylesheet" href="/static/code/styles/shCoreEclipse.css" />
+
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+
+
+        <!--        <link rel="stylesheet" href="/static/syntaxhighlighter_3.0.83/styles/shCore.css">
+                  <link rel="stylesheet" href="/static/syntaxhighlighter_3.0.83/styles/shThemeDefault.css">
+        
+                 <script src="/static/syntaxhighlighter_3.0.83/scripts/shCore.js"></script>-->
+
+    </head>
+    <body>
+        <section class="Layout__Sidebar">
+            <img class="Logo" src="http://pearsearch.org/images/logo.svg" alt="Pearsearch logo"/>
+            <nav class="Navigation Navigation--Main">
+                <li><a href="/">Home</a></li>
+                {volist name="category" id="vo"}
+                <li><a href="{:url('index/index/category','id='.$vo['id'])}">{$vo.title}</a></li>
+                {/volist}
+                <!--<li class="Navigation--Selected"><a href="posts.html">Writing</a></li>-->
+            </nav>
+            <hr class="Navigation__Splitter"/>
+            <nav class="Navigation Navigation--Secondry">
+                <li><a href="https://github.com/PeARSearch/PeARS-orchard">Install from Github</a></li>
+                <li><a href="https://github.com/PeARSearch/PeARS-orchard">我要留言</a></li>
+            </nav>
+
+        </section>
+        <section class="Layout__Content Article">
+
+
+            <h1 class="PageTitle">{$article.title}</h1>
+            <div id="content">
+
+                {:htmlspecialchars_decode($article['content'])}
+            </div>
+        </section>
+        <!--<script type="text/javascript" src="scripts/contribute.js"></script>-->
+
+        <!-- jQuery 3 -->
+        <script src="/static/admin/bower_components/jquery/dist/jquery.min.js"></script>
+
+
+        <script type="text/javascript">
+            SyntaxHighlighter.all();
+        </script>
+    </body>
+</html>
+

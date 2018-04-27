@@ -20,4 +20,8 @@ class Category extends Model {
 //    {
 //        //TODO:初始化内容
 //    }
+    
+    public function _getCategory(){
+        return $this->field('id,title,slug')->where('status=1')->select();
+    }
 }

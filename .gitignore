@@ -6,4 +6,4 @@ thinkphp
 .env
 /nbproject
 /runtime
-/runtime/temp
+runtime
