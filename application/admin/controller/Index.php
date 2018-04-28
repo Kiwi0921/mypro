@@ -2,7 +2,9 @@
 
 namespace app\admin\controller;
 
-class Index {
+use app\admin\controller\Common;
+
+class Index extends Common {
 
     public function index() {
         return view();
